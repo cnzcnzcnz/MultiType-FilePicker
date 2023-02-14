@@ -1,15 +1,20 @@
 package com.vincent.filepickersample;
 
+//import static com.vincent.filepicker.activity.BaseActivity.IS_NEED_FOLDER_LIST;
+//import static com.vincent.filepicker.activity.ImagePickActivity.IS_NEED_CAMERA;
+
+
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+import android.app.Activity;
 
 import com.vincent.filepicker.Constant;
 import com.vincent.filepicker.Util;
 import com.vincent.filepicker.activity.AudioPickActivity;
+import com.vincent.filepicker.activity.BaseActivity;
 import com.vincent.filepicker.activity.ImagePickActivity;
 import com.vincent.filepicker.activity.NormalFilePickActivity;
 import com.vincent.filepicker.activity.VideoPickActivity;
@@ -24,12 +29,21 @@ import com.vincent.filepicker.filter.entity.VideoFile;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static com.vincent.filepicker.activity.AudioPickActivity.IS_NEED_RECORDER;
-import static com.vincent.filepicker.activity.BaseActivity.IS_NEED_FOLDER_LIST;
-import static com.vincent.filepicker.activity.ImagePickActivity.IS_NEED_CAMERA;
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.appcompat.app.AppCompatActivity;
+
+//import static com.vincent.filepicker.activity.AudioPickActivity.IS_NEED_RECORDER;
+//import static com.vincent.filepicker.activity.BaseActivity.IS_NEED_FOLDER_LIST;
+//import static com.vincent.filepicker.activity.ImagePickActivity.IS_NEED_CAMERA;
+
+
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
     private TextView mTvResult;
@@ -48,29 +62,29 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (id) {
             case R.id.btn_pick_image:
                 Intent intent1 = new Intent(this, ImagePickActivity.class);
-                intent1.putExtra(IS_NEED_CAMERA, true);
+                intent1.putExtra(ImagePickActivity.IS_NEED_CAMERA, true);
                 intent1.putExtra(Constant.MAX_NUMBER, 9);
-                intent1.putExtra(IS_NEED_FOLDER_LIST, true);
+                intent1.putExtra(BaseActivity.IS_NEED_FOLDER_LIST, true);
                 startActivityForResult(intent1, Constant.REQUEST_CODE_PICK_IMAGE);
                 break;
             case R.id.btn_pick_video:
                 Intent intent2 = new Intent(this, VideoPickActivity.class);
-                intent2.putExtra(IS_NEED_CAMERA, true);
+                intent2.putExtra(VideoPickActivity.IS_NEED_CAMERA, true);
                 intent2.putExtra(Constant.MAX_NUMBER, 9);
-                intent2.putExtra(IS_NEED_FOLDER_LIST, true);
+                intent2.putExtra(BaseActivity.IS_NEED_FOLDER_LIST, true);
                 startActivityForResult(intent2, Constant.REQUEST_CODE_PICK_VIDEO);
                 break;
             case R.id.btn_pick_audio:
                 Intent intent3 = new Intent(this, AudioPickActivity.class);
-                intent3.putExtra(IS_NEED_RECORDER, true);
+                intent3.putExtra(AudioPickActivity.IS_NEED_RECORDER, true);
                 intent3.putExtra(Constant.MAX_NUMBER, 9);
-                intent3.putExtra(IS_NEED_FOLDER_LIST, true);
+                intent3.putExtra(BaseActivity.IS_NEED_FOLDER_LIST, true);
                 startActivityForResult(intent3, Constant.REQUEST_CODE_PICK_AUDIO);
                 break;
             case R.id.btn_pick_file:
                 Intent intent4 = new Intent(this, NormalFilePickActivity.class);
                 intent4.putExtra(Constant.MAX_NUMBER, 9);
-                intent4.putExtra(IS_NEED_FOLDER_LIST, true);
+                intent4.putExtra(BaseActivity.IS_NEED_FOLDER_LIST, true);
                 intent4.putExtra(NormalFilePickActivity.SUFFIX,
                         new String[] {"xlsx", "xls", "doc", "dOcX", "ppt", ".pptx", "pdf"});
                 startActivityForResult(intent4, Constant.REQUEST_CODE_PICK_FILE);
@@ -80,6 +94,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
             case Constant.REQUEST_CODE_PICK_IMAGE:
                 if (resultCode == RESULT_OK) {

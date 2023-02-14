@@ -2,10 +2,11 @@ package com.vincent.filepicker.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
-import android.support.v7.widget.Toolbar;
+import androidx.annotation.Nullable;
+
+import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
+
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,6 +19,7 @@ import com.vincent.filepicker.Constant;
 import com.vincent.filepicker.R;
 import com.vincent.filepicker.ToastUtil;
 import com.vincent.filepicker.filter.FileFilter;
+import com.vincent.filepicker.filter.callback.FileLoaderCallbacks;
 import com.vincent.filepicker.filter.callback.FilterResultCallback;
 import com.vincent.filepicker.filter.entity.Directory;
 import com.vincent.filepicker.filter.entity.ImageFile;
@@ -43,7 +45,7 @@ public class ImageBrowserActivity extends BaseActivity {
     private int mCurrentIndex = 0;
 
     private ViewPager mViewPager;
-    private Toolbar mTbImagePick;
+    private androidx.appcompat.widget.Toolbar mTbImagePick;
     private ArrayList<ImageFile> mList = new ArrayList<>();
     private ImageView mSelectView;
     private ArrayList<ImageFile> mSelectedFiles;
@@ -68,7 +70,7 @@ public class ImageBrowserActivity extends BaseActivity {
     }
 
     private void initView() {
-        mTbImagePick = (Toolbar) findViewById(R.id.tb_image_pick);
+        mTbImagePick = findViewById(R.id.tb_image_pick);
         mTbImagePick.setTitle(mCurrentNumber + "/" + mMaxNumber);
         setSupportActionBar(mTbImagePick);
         mTbImagePick.setNavigationOnClickListener(new View.OnClickListener() {

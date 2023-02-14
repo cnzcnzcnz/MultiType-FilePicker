@@ -3,9 +3,11 @@ package com.vincent.filepicker.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.support.annotation.Nullable;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.FragmentActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -20,7 +22,7 @@ import com.vincent.filepicker.Util;
 import com.vincent.filepicker.adapter.AudioPickAdapter;
 import com.vincent.filepicker.adapter.FolderListAdapter;
 import com.vincent.filepicker.adapter.OnSelectStateListener;
-import com.vincent.filepicker.filter.FileFilter;
+//import com.vincent.filepicker.filter.FileFilter;
 import com.vincent.filepicker.filter.callback.FilterResultCallback;
 import com.vincent.filepicker.filter.entity.AudioFile;
 import com.vincent.filepicker.filter.entity.Directory;
@@ -82,7 +84,7 @@ public class AudioPickActivity extends BaseActivity {
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.addItemDecoration(new DividerListItemDecoration(this,
                 LinearLayoutManager.VERTICAL, R.drawable.vw_divider_rv_file));
-        mAdapter = new AudioPickAdapter(this, mMaxNumber);
+        mAdapter = new AudioPickAdapter(this, mSelectedList, mMaxNumber);
         mRecyclerView.setAdapter(mAdapter);
 
         mAdapter.setOnSelectStateListener(new OnSelectStateListener<AudioFile>() {
@@ -163,23 +165,23 @@ public class AudioPickActivity extends BaseActivity {
     }
 
     private void loadData() {
-        FileFilter.getAudios(this, new FilterResultCallback<AudioFile>() {
-            @Override
-            public void onResult(List<Directory<AudioFile>> directories) {
-                // Refresh folder list
-                if (isNeedFolderList) {
-                    ArrayList<Directory> list = new ArrayList<>();
-                    Directory all = new Directory();
-                    all.setName(getResources().getString(R.string.vw_all));
-                    list.add(all);
-                    list.addAll(directories);
-                    mFolderHelper.fillData(list);
-                }
-
-                mAll = directories;
-                refreshData(directories);
-            }
-        });
+//        FileFilter.getAudios(this, new FilterResultCallback<AudioFile>() {
+//            @Override
+//            public void onResult(List<Directory<AudioFile>> directories) {
+//                // Refresh folder list
+//                if (isNeedFolderList) {
+//                    ArrayList<Directory> list = new ArrayList<>();
+//                    Directory all = new Directory();
+//                    all.setName(getResources().getString(R.string.vw_all));
+//                    list.add(all);
+//                    list.addAll(directories);
+//                    mFolderHelper.fillData(list);
+//                }
+//
+//                mAll = directories;
+//                refreshData(directories);
+//            }
+//        });
     }
 
     private void refreshData(List<Directory<AudioFile>> directories) {

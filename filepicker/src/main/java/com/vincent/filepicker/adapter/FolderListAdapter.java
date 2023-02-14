@@ -1,11 +1,13 @@
 package com.vincent.filepicker.adapter;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.vincent.filepicker.R;
 import com.vincent.filepicker.filter.entity.Directory;
@@ -22,9 +24,14 @@ import java.util.List;
 
 public class FolderListAdapter extends BaseAdapter<Directory, FolderListAdapter.FolderListViewHolder> {
     private FolderListListener mListener;
+    private final Context mContext;
+    private final ArrayList<Directory> mList;
+
 
     public FolderListAdapter(Context ctx, ArrayList<Directory> list) {
         super(ctx, list);
+        this.mContext = ctx;
+        this.mList = list;
     }
 
     @Override
@@ -41,7 +48,7 @@ public class FolderListAdapter extends BaseAdapter<Directory, FolderListAdapter.
             @Override
             public void onClick(View v) {
                 if (mListener != null) {
-                    mListener.onFolderListClick(mList.get(holder.getAdapterPosition()));
+                    mListener.onFolderListClick(mList.get(holder.getAbsoluteAdapterPosition()));
                 }
             }
         });

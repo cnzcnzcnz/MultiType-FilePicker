@@ -8,8 +8,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.support.v4.content.FileProvider;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,6 +33,9 @@ import java.util.Locale;
 import static android.os.Environment.DIRECTORY_DCIM;
 import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
 import static com.vincent.filepicker.Constant.REQUEST_CODE_TAKE_VIDEO;
+
+import androidx.core.content.FileProvider;
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * Created by Vincent Woo

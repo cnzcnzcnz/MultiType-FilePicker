@@ -9,6 +9,7 @@
         android:supportsRtl="true">
 
         <activity
+            android:exported="true"
             android:name=".activity.ImagePickActivity"
             android:screenOrientation="portrait"
             android:theme="@style/vw_FilePickerTheme" />
@@ -16,21 +17,25 @@
         <activity android:name=".activity.ImageBrowserActivity"
             android:screenOrientation="portrait"
             android:theme="@style/vw_FilePickerTheme"
-            android:hardwareAccelerated="false" />
+            android:hardwareAccelerated="false"
+            android:exported="true"/>
 
         <activity android:name=".activity.VideoPickActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/vw_FilePickerTheme" />
+            android:theme="@style/vw_FilePickerTheme"
+            android:exported="true"/>
 
         <activity android:name=".activity.AudioPickActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/vw_FilePickerTheme" />
+            android:theme="@style/vw_FilePickerTheme"
+            android:exported="true"/>
 
         <activity android:name=".activity.NormalFilePickActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/vw_FilePickerTheme" />
+            android:theme="@style/vw_FilePickerTheme"
+            android:exported="true"/>
         <provider
-            android:name="android.support.v4.content.FileProvider"
+            android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.provider"
             android:exported="false"
             android:grantUriPermissions="true">
